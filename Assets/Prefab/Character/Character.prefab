@@ -85,11 +85,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2803465476018272212}
-  - component: {fileID: 4781483526353042992}
+  - component: {fileID: 5538493290237702837}
   - component: {fileID: 1128563993691558605}
   - component: {fileID: 3271712054875033437}
   - component: {fileID: 8541122251934987133}
   - component: {fileID: 5066300110945233048}
+  - component: {fileID: 4140647271328827121}
+  - component: {fileID: 2510530200346553807}
   - component: {fileID: 1978537494032906270}
   - component: {fileID: 4431920872563377740}
   m_Layer: 12
@@ -116,7 +118,7 @@ Transform:
   - {fileID: 7155812725398133824}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4781483526353042992
+--- !u!114 &5538493290237702837
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -187,6 +189,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c3da52bef20d9949aaa8cbe79c956e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AIInput
+--- !u!114 &4140647271328827121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7363097569255139628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0999a15765ba010459a7f2b7a0ced76e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterHealth
+  <MaxHealth>k__BackingField: 100
+--- !u!114 &2510530200346553807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7363097569255139628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a01d83f8145df9341b8f88c8ecc2baf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterAttackComponent
+  damageSettings:
+    <Damage>k__BackingField: 25
+  hitBoxSettings:
+    <Distance>k__BackingField: 2
+    <HalfExtents>k__BackingField: {x: 1, y: 2, z: 2}
+    <LayerMask>k__BackingField:
+      serializedVersion: 2
+      m_Bits: 4096
 --- !u!95 &1978537494032906270
 Animator:
   serializedVersion: 7

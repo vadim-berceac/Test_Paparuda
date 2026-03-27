@@ -24,6 +24,18 @@ public class CharacterInstaller : MonoInstaller
             .NonLazy();
         
         Container
+            .Bind<CharacterAttackComponent>()
+            .FromInstance(GetComponent<CharacterAttackComponent>())
+            .AsSingle()
+            .NonLazy();
+        
+        Container
+            .BindInterfacesAndSelfTo<IDamageable>()
+            .FromInstance(GetComponent<CharacterHealth>())
+            .AsSingle()
+            .NonLazy();
+        
+        Container
             .Bind<CollisionDetector>()
             .FromInstance(GetComponent<CollisionDetector>())
             .AsSingle()

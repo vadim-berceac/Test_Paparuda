@@ -1,45 +1,84 @@
+using DG.Tweening;
 using UnityEngine;
 
 public class CharacterMovementHandler
 {
     private const float RotationSpeed = 120f;
+    private const float HitReactionDuration = 0.5f;
     
     private readonly Animator _animator;
     private readonly CharacterInputHandler _characterInputHandler;
     private readonly Transform _characterTransform;
+    private readonly IDamageable _damageable;
     
     private readonly int _moveYHash;
     private readonly int _moveXHash;
     private readonly int _blendIndexHash;
     private readonly int _attackXHash;
-    private readonly int _hitReactionHash;
+    private readonly int _hitReactionTriggerHash;
+    
+    private float _hitReactionEndTime = -1f;
+    private Tween _rotationTween;
 
     public CharacterMovementHandler
     (
         Animator animator,
         CharacterInputHandler characterInputHandler,
-        Transform characterTransform
-        )
+        Transform characterTransform,
+        IDamageable damageable
+    )
     {
         _animator = animator;
         _characterInputHandler = characterInputHandler;
         _characterTransform = characterTransform;
+        _damageable = damageable;
         
         _moveXHash = Animator.StringToHash("MoveX");
         _moveYHash = Animator.StringToHash("MoveY");
         _blendIndexHash = Animator.StringToHash("BlendIndex");
         _attackXHash = Animator.StringToHash("Attack");
-        _hitReactionHash = Animator.StringToHash("HitReaction");
+        _hitReactionTriggerHash = Animator.StringToHash("HitReactionTrigger");
+
+        _damageable.OnDamageTaken += UpdateHitReaction;
     }
 
     public void UpdateMovement()
     {
+        if (_hitReactionEndTime > 0 && Time.time >= _hitReactionEndTime)
+        {
+            _hitReactionEndTime = -1f;
+        }
+
         UpdateAnimator();
         
         if (_characterInputHandler.Rotation != Vector3.zero)
         {
             Rotation(_characterTransform, _characterInputHandler.Rotation, RotationSpeed);
         }
+    }
+
+    public void OnDestroy()
+    {
+        _damageable.OnDamageTaken -= UpdateHitReaction;
+        _rotationTween?.Kill();
+    }
+
+    private void UpdateHitReaction(float damage, Transform source)
+    {
+        _rotationTween?.Kill();
+       
+        _animator.SetTrigger(_hitReactionTriggerHash);
+        
+        _hitReactionEndTime = Time.time + HitReactionDuration;
+       
+        var targetLookPos = source.position;
+        targetLookPos.y = _characterTransform.position.y;
+       
+        _rotationTween = _characterTransform.DOLookAt(
+            targetLookPos, 
+            HitReactionDuration / 2,
+            AxisConstraint.Y
+        );
     }
     
     private void UpdateAnimator()

@@ -31,15 +31,12 @@ public class PlayerInput : ScriptableObject, ITickable, ICharacterInput, ICamera
     private void Construct(SceneCamera sceneCamera)
     {
         _mainCamera = sceneCamera.MainCamera;
-    }
-
-    private void OnEnable()
-    {
+        
         FindActions();
         Subscribe();
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         Unsubscribe();
     }

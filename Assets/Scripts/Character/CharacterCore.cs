@@ -18,13 +18,14 @@ public class CharacterCore : MonoBehaviour
       CameraTargetTag cameraTargetTag,
       PlayerInput playerInput,
       AIInput aiInput,
-      SceneCharacterContainer container
+      SceneCharacterContainer container,
+      IDamageable damageable
       )
    {
       _sceneCamera = sceneCamera;
       _cameraTargetTag = cameraTargetTag;
       _characterInputHandler = new CharacterInputHandler(playerInput, aiInput); 
-      _characterMovementHandler = new CharacterMovementHandler(animator, _characterInputHandler, transform);
+      _characterMovementHandler = new CharacterMovementHandler(animator, _characterInputHandler, transform, damageable);
       _container = container;
       _container.RegisterCharacter(this);
    }
@@ -52,5 +53,6 @@ public class CharacterCore : MonoBehaviour
    private void OnDestroy()
    {
       _container.UnregisterCharacter(this);
+      _characterMovementHandler.OnDestroy();
    }
 }
