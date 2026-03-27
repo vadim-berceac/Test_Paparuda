@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public interface ICharacterInput
+public class AIInput : MonoBehaviour, ICharacterInput
 {
     public Vector2 Move { get; set; }
     public Vector3 Rotation { get; set; }

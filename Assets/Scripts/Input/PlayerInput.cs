@@ -23,7 +23,6 @@ public class PlayerInput : ScriptableObject, ITickable, ICharacterInput, ICamera
     public Vector2 Move { get; set; }
     public Vector2 Look { get; set; }
     public Vector3 Rotation { get; set; }
-    public bool Jump { get; set; }
     public bool Run { get; set; }
     public bool Interact { get; set; }
 
@@ -67,10 +66,7 @@ public class PlayerInput : ScriptableObject, ITickable, ICharacterInput, ICamera
 
         _look.performed += OnLookCTX;
         _look.canceled += OnLookCTXCancel;
-
-        _jump.performed += OnJumpCTX;
-        _jump.canceled += OnJumpCTXCancel;
-
+        
         _run.performed += OnRunCTX;
         _run.canceled += OnRunCTXCancel;
 
@@ -88,9 +84,6 @@ public class PlayerInput : ScriptableObject, ITickable, ICharacterInput, ICamera
         _look.performed -= OnLookCTX;
         _look.canceled -= OnLookCTXCancel;
 
-        _jump.performed -= OnJumpCTX;
-        _jump.canceled -= OnJumpCTXCancel;
-
         _run.performed -= OnRunCTX;
         _run.canceled -= OnRunCTXCancel;
 
@@ -105,8 +98,6 @@ public class PlayerInput : ScriptableObject, ITickable, ICharacterInput, ICamera
     private void OnMoveCTXCancel(InputAction.CallbackContext ctx) => Move = Vector2.zero;
     private void OnLookCTX(InputAction.CallbackContext ctx) => Look = ctx.ReadValue<Vector2>();
     private void OnLookCTXCancel(InputAction.CallbackContext ctx) => Look = Vector2.zero;
-    private void OnJumpCTX(InputAction.CallbackContext ctx) => Jump = true;
-    private void OnJumpCTXCancel(InputAction.CallbackContext ctx) => Jump = false;
     private void OnRunCTX(InputAction.CallbackContext ctx) => Run = true;
     private void OnRunCTXCancel(InputAction.CallbackContext ctx) => Run = false;
     private void OnInteractCTX(InputAction.CallbackContext ctx) => Interact = true;
