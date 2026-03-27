@@ -11,6 +11,8 @@ public class CharacterMovementHandler
     private readonly int _moveYHash;
     private readonly int _moveXHash;
     private readonly int _blendIndexHash;
+    private readonly int _attackXHash;
+    private readonly int _hitReactionHash;
 
     public CharacterMovementHandler
     (
@@ -26,6 +28,8 @@ public class CharacterMovementHandler
         _moveXHash = Animator.StringToHash("MoveX");
         _moveYHash = Animator.StringToHash("MoveY");
         _blendIndexHash = Animator.StringToHash("BlendIndex");
+        _attackXHash = Animator.StringToHash("Attack");
+        _hitReactionHash = Animator.StringToHash("HitReaction");
     }
 
     public void UpdateMovement()
@@ -43,6 +47,7 @@ public class CharacterMovementHandler
         _animator.SetFloat(_moveXHash, _characterInputHandler.MoveInput.x);
         _animator.SetFloat(_moveYHash, _characterInputHandler.MoveInput.y);
         _animator.SetInteger(_blendIndexHash, GetBlendIndex());
+        _animator.SetInteger(_attackXHash, _characterInputHandler.AttackPressed ? 1 : 0);
     }
 
     private int GetBlendIndex()

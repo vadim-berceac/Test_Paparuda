@@ -16,7 +16,7 @@ MonoBehaviour:
   names:
     <MoveActionName>k__BackingField: Move
     <LookActionName>k__BackingField: Look
-    <JumpActionName>k__BackingField: Jump
+    <AttackActionName>k__BackingField: Attack
     <RunActionName>k__BackingField: Run
     <InteractActionName>k__BackingField: Interact
     <NextActionName>k__BackingField: Next

@@ -16,6 +16,7 @@ public class CharacterInputHandler
     public Vector3 Rotation => _currentInputSource?.Rotation ?? Vector3.zero;
     public bool RunPressed => _currentInputSource?.Run ?? false;
     public bool InteractPressed => _currentInputSource?.Interact ?? false;
+    public bool AttackPressed => _currentInputSource?.Attack ?? false;
     
     private ICharacterInput _currentInputSource;
     

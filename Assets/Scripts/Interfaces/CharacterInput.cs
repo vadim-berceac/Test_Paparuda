@@ -6,4 +6,5 @@ public interface ICharacterInput
     public Vector3 Rotation { get; set; }
     public bool Run { get; set; }
     public bool Interact { get; set; }
+    public bool Attack { get; set; }
 }

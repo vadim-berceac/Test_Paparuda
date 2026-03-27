@@ -11,7 +11,7 @@ public class PlayerInput : ScriptableObject, ITickable, ICharacterInput, ICamera
 
     private InputAction _move;
     private InputAction _look;
-    private InputAction _jump;
+    private InputAction _attack;
     private InputAction _run;
     private InputAction _interact;
     private InputAction _nextCharacter;
@@ -25,6 +25,7 @@ public class PlayerInput : ScriptableObject, ITickable, ICharacterInput, ICamera
     public Vector3 Rotation { get; set; }
     public bool Run { get; set; }
     public bool Interact { get; set; }
+    public bool Attack { get; set; }
 
     [Inject]
     private void Construct(SceneCamera sceneCamera)
@@ -53,7 +54,7 @@ public class PlayerInput : ScriptableObject, ITickable, ICharacterInput, ICamera
     {
         _move = inputAsset.FindAction(names.MoveActionName);
         _look = inputAsset.FindAction(names.LookActionName);
-        _jump = inputAsset.FindAction(names.JumpActionName);
+        _attack = inputAsset.FindAction(names.AttackActionName);
         _run = inputAsset.FindAction(names.RunActionName);
         _interact = inputAsset.FindAction(names.InteractActionName);
         _nextCharacter = inputAsset.FindAction(names.NextActionName);
@@ -69,6 +70,9 @@ public class PlayerInput : ScriptableObject, ITickable, ICharacterInput, ICamera
         
         _run.performed += OnRunCTX;
         _run.canceled += OnRunCTXCancel;
+
+        _attack.performed += OnAttackCTX;
+        _attack.canceled += OnAttackCTXCancel;
 
         _interact.performed += OnInteractCTX;
         _interact.canceled += OnInteractCTXCancel;
@@ -86,6 +90,9 @@ public class PlayerInput : ScriptableObject, ITickable, ICharacterInput, ICamera
 
         _run.performed -= OnRunCTX;
         _run.canceled -= OnRunCTXCancel;
+        
+        _attack.performed -= OnAttackCTX;
+        _attack.canceled -= OnAttackCTXCancel;
 
         _interact.performed -= OnInteractCTX;
         _interact.canceled -= OnInteractCTXCancel;
@@ -100,6 +107,8 @@ public class PlayerInput : ScriptableObject, ITickable, ICharacterInput, ICamera
     private void OnLookCTXCancel(InputAction.CallbackContext ctx) => Look = Vector2.zero;
     private void OnRunCTX(InputAction.CallbackContext ctx) => Run = true;
     private void OnRunCTXCancel(InputAction.CallbackContext ctx) => Run = false;
+    private void OnAttackCTX(InputAction.CallbackContext ctx) => Attack = true;
+    private void OnAttackCTXCancel(InputAction.CallbackContext ctx) => Attack = false;
     private void OnInteractCTX(InputAction.CallbackContext ctx) => Interact = true;
     private void OnInteractCTXCancel(InputAction.CallbackContext ctx) => Interact = false;
 }
@@ -109,7 +118,7 @@ public struct InputNames
 {
     [field: SerializeField] public string MoveActionName { get; private set; }
     [field: SerializeField] public string LookActionName { get; private set; }
-    [field: SerializeField] public string JumpActionName { get; private set; }
+    [field: SerializeField] public string AttackActionName { get; private set; }
     [field: SerializeField] public string RunActionName { get; private set; }
     [field: SerializeField] public string InteractActionName { get; private set; }
     [field: SerializeField] public string NextActionName { get; private set; }
