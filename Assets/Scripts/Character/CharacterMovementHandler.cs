@@ -16,6 +16,7 @@ public class CharacterMovementHandler
     private readonly int _blendIndexHash;
     private readonly int _attackXHash;
     private readonly int _hitReactionTriggerHash;
+    private readonly int _stunTriggerHash;
     
     private float _hitReactionEndTime = -1f;
     private Tween _rotationTween;
@@ -38,8 +39,10 @@ public class CharacterMovementHandler
         _blendIndexHash = Animator.StringToHash("BlendIndex");
         _attackXHash = Animator.StringToHash("Attack");
         _hitReactionTriggerHash = Animator.StringToHash("HitReactionTrigger");
+        _stunTriggerHash = Animator.StringToHash("StunTrigger");
 
-        _damageable.OnDamageTaken += UpdateHitReaction;
+        _damageable.OnDamageTaken += HitReaction;
+        _damageable.OnDeath += Stun;
     }
 
     public void UpdateMovement()
@@ -59,11 +62,12 @@ public class CharacterMovementHandler
 
     public void OnDestroy()
     {
-        _damageable.OnDamageTaken -= UpdateHitReaction;
+        _damageable.OnDamageTaken -= HitReaction;
+        _damageable.OnDeath -= Stun;
         _rotationTween?.Kill();
     }
 
-    private void UpdateHitReaction(float damage, Transform source)
+    private void HitReaction(float damage, Transform source)
     {
         _rotationTween?.Kill();
        
@@ -79,6 +83,11 @@ public class CharacterMovementHandler
             HitReactionDuration / 2,
             AxisConstraint.Y
         );
+    }
+
+    private void Stun()
+    {
+        _animator.SetTrigger(_stunTriggerHash);
     }
     
     private void UpdateAnimator()
