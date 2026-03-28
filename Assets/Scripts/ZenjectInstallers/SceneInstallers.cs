@@ -5,6 +5,7 @@ public class SceneInstallers : MonoInstaller
 {
     [SerializeField] private GameObject sceneCameraPrefab;
     [SerializeField] private PlayerInput playerInput;
+    [SerializeField] private CharacterStatesContainer characterStatesContainer;
     
     public override void InstallBindings()
     {
@@ -17,6 +18,11 @@ public class SceneInstallers : MonoInstaller
        Container
            .BindInterfacesAndSelfTo<PlayerInput>()
            .FromScriptableObject(playerInput)
+           .AsSingle();
+       
+       Container
+           .BindInterfacesAndSelfTo<CharacterStatesContainer>()
+           .FromScriptableObject(characterStatesContainer)
            .AsSingle();
        
        Container

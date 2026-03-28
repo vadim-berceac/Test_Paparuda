@@ -1,6 +1,7 @@
 using UnityEngine;
 
-public class StunState
+[CreateAssetMenu(fileName = "StunState", menuName = "Scriptable Objects/States/StunState")]
+public class StunState : State
 {
     
 }

@@ -79,3 +79,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SceneInstallers
   sceneCameraPrefab: {fileID: 2163191171529207428, guid: f3c0ab9c1c471a54e92f6f7808c792d0, type: 3}
   playerInput: {fileID: 11400000, guid: 116247fa131fd374d8fa7405cb006290, type: 2}
+  characterStatesContainer: {fileID: 11400000, guid: 912761d0bc7f26e42ac48f4f9c161c7c, type: 2}

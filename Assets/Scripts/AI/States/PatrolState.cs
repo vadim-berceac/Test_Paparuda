@@ -1,6 +1,7 @@
 using UnityEngine;
 
-public class PatrolState
+[CreateAssetMenu(fileName = "PatrolState", menuName = "Scriptable Objects/States/PatrolState")]
+public class PatrolState : State
 {
     
 }

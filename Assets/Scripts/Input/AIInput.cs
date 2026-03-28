@@ -1,9 +1,9 @@
 using UnityEngine;
 using Zenject;
 
-public class AIInput : MonoBehaviour, ICharacterInput
+public class AIInput : MonoBehaviour, ICharacterInput, IEnableable
 {
-    [SerializeField] private BehaviourType behaviourType;
+    [field: SerializeField] public BehaviourType BehaviourType { get; private set; }
     
     public Vector2 Move { get; set; }
     public Vector3 Rotation { get; set; }
@@ -11,37 +11,44 @@ public class AIInput : MonoBehaviour, ICharacterInput
     public bool Interact { get; set; }
     public bool Attack { get; set; }
 
-    private bool _enabled;
+    public bool Enabled { get; set; }  
     private FSM _stateMachine;
-    //private StatesContainer _container;
 
     [Inject]
-    private void Construct(CharacterCore characterCore)
+    private void Construct(
+        CharacterCore characterCore,
+        CharacterStatesContainer characterStatesContainer
+        )
     {
-        //_stateMachine = new FSM("blank", characterCore);
+        _stateMachine = new FSM(characterCore, this, characterStatesContainer);
     }
 
-    public void Enable(bool enable)
+    public void Enable()
     {
-        _enabled = enable;
+        Enabled = true;
+    }
+
+    public void Disable()
+    {
+        Enabled = false;
     }
 
     private void Update()
     {
-        if(!_enabled) return;
-        //_stateMachine.Update();
+        if(!Enabled) return;
+        _stateMachine.OnUpdate();
     }
 
     private void FixedUpdate()
     {
-        if(!_enabled) return;
-        //_stateMachine.FixedUpdate();
+        if(!Enabled) return;
+        _stateMachine.OnFixedUpdate();
     }
 
     private void LateUpdate()
     {
-        if(!_enabled) return;
-        //_stateMachine.LateUpdate();
+        if(!Enabled) return;
+        _stateMachine.OnLateUpdate();
     }
 }
 

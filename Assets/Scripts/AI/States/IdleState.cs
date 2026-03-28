@@ -1,6 +1,7 @@
 using UnityEngine;
 
-public class IdleState
+[CreateAssetMenu(fileName = "IdleState", menuName = "Scriptable Objects/States/IdleState")]
+public class IdleState : State
 {
     
 }

@@ -1,17 +1,29 @@
 
-public abstract class State
+using UnityEngine;
+
+public abstract class State : ScriptableObject
 {
-    protected virtual void Enter(FSM machine) { }
-    protected virtual void Exit(FSM machine) { }
-    public virtual void Update(FSM machine) { }
-    public virtual void FixedUpdate(FSM machine) { }
-    public virtual void LateUpdate(FSM machine) { }
-    protected virtual void CheckSwitch(FSM machine) { }
+    [field: SerializeField] public StateType StateType { get; private set; }
+    protected virtual void OnEnter(FSM machine) { }
+    protected virtual void OnExit(FSM machine) { }
+    public virtual void OnUpdate(FSM machine) { }
+    public virtual void OnFixedUpdate(FSM machine) { }
+    public virtual void OnLateUpdate(FSM machine) { }
+    protected virtual void OnCheckSwitch(FSM machine) { }
 
     protected void SwitchState(FSM machine, State newState)
     {
-        machine.CurrentState?.Exit(machine);
+        machine.CurrentState?.OnExit(machine);
         machine.SetState(newState);
-        machine.CurrentState?.Enter(machine);
+        machine.CurrentState?.OnEnter(machine);
     }
+}
+
+public enum StateType
+{
+    Idle,
+    Chase,
+    Flee,
+    Patrol,
+    Stun
 }

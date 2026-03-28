@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87074c6e92c84474584006545c9e0b03, type: 3}
+  m_Name: CharacterStatesContainer
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterStatesContainer
+  <States>k__BackingField:
+  - {fileID: 11400000, guid: 80c8c22e9baba8b4f879c30ea3f40b9e, type: 2}
+  - {fileID: 11400000, guid: c9c17f757e133f841ac07d0c87689d86, type: 2}
+  - {fileID: 11400000, guid: 4cb292b16bea0ae4785996a48fc54048, type: 2}
+  - {fileID: 11400000, guid: fec6185436170224bb1952ae5f847721, type: 2}
+  - {fileID: 11400000, guid: 74880d9b5ea815b41b38371d7eee8c99, type: 2}

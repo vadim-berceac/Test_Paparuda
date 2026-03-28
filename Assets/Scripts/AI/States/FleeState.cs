@@ -1,6 +1,7 @@
 using UnityEngine;
 
-public class FleeState
+[CreateAssetMenu(fileName = "FleeState", menuName = "Scriptable Objects/States/FleeState")]
+public class FleeState : State
 {
     
 }

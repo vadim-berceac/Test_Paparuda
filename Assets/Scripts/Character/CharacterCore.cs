@@ -5,6 +5,7 @@ public class CharacterCore : MonoBehaviour
 {
    private SceneCamera _sceneCamera;
    private CameraTargetTag _cameraTargetTag;
+   private AIInput _aiInput;
    private CharacterInputHandler _characterInputHandler;
    private CharacterMovementHandler _characterMovementHandler;
    private Transform _characterTransform;
@@ -24,7 +25,8 @@ public class CharacterCore : MonoBehaviour
    {
       _sceneCamera = sceneCamera;
       _cameraTargetTag = cameraTargetTag;
-      _characterInputHandler = new CharacterInputHandler(playerInput, aiInput); 
+      _aiInput = aiInput;
+      _characterInputHandler = new CharacterInputHandler(playerInput, _aiInput); 
       _characterMovementHandler = new CharacterMovementHandler(animator, _characterInputHandler, transform, damageable);
       _container = container;
       _container.RegisterCharacter(this);
@@ -35,6 +37,8 @@ public class CharacterCore : MonoBehaviour
       _sceneCamera.SetTarget(_cameraTargetTag.transform);
       
       _characterInputHandler.SetupInput(InputSourceMode.Player);
+      
+      _aiInput.Disable();
    }
 
    public void ResetPlayerSelection()
@@ -42,6 +46,8 @@ public class CharacterCore : MonoBehaviour
       _sceneCamera.SetTarget(null);
       
       _characterInputHandler.SetupInput(InputSourceMode.AI);
+      
+      _aiInput.Enable();
    }
 
    private void Update()

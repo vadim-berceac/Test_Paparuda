@@ -2,13 +2,23 @@
 public class FSM
 {
     private readonly CharacterCore _character;
+    private readonly AIInput _aiInput;
+    private readonly CharacterStatesContainer _characterStatesContainer;
+    
     public State CurrentState { get; private set; }
+    public BehaviourType BehaviourType => _aiInput.BehaviourType;
 
-    public FSM(State initialState, CharacterCore character)
+    public FSM(
+        CharacterCore character,
+        AIInput aiInput,
+        CharacterStatesContainer characterStatesContainer,
+        StateType initialStateType = StateType.Idle
+        )
     {
-        CurrentState = initialState;
-        
         _character = character;
+        _aiInput = aiInput;
+        _characterStatesContainer = characterStatesContainer;
+        SetState(characterStatesContainer.GetState(initialStateType));
     }
 
     public void SetState(State state)
@@ -16,18 +26,18 @@ public class FSM
         CurrentState = state;
     }
 
-    public void Update()
+    public void OnUpdate()
     {
-        CurrentState.Update(this);
+        CurrentState.OnUpdate(this);
     }
 
-    public void FixedUpdate()
+    public void OnFixedUpdate()
     {
-        CurrentState.FixedUpdate(this);
+        CurrentState.OnFixedUpdate(this);
     }
 
-    public void LateUpdate()
+    public void OnLateUpdate()
     {
-        CurrentState.LateUpdate(this);
+        CurrentState.OnLateUpdate(this);
     }
 }
