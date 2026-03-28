@@ -6,6 +6,7 @@ public class CharacterHealth : MonoBehaviour, IDamageable
     [field:SerializeField] public float MaxHealth { get; set; } = 100f;
     public float CurrentHealth { get; set; }
     public bool IsDead { get; set; }
+    public Transform Transform { get; set; }
 
     public event Action<float, Transform> OnDamageTaken;
     public event Action OnDeath;
@@ -14,6 +15,7 @@ public class CharacterHealth : MonoBehaviour, IDamageable
     {
         CurrentHealth = MaxHealth;
         IsDead = false;
+        Transform = transform;
     }
 
     public void TakeDamage(float damage, Transform source)

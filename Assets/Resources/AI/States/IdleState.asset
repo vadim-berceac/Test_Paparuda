@@ -13,3 +13,7 @@ MonoBehaviour:
   m_Name: IdleState
   m_EditorClassIdentifier: Assembly-CSharp::IdleState
   <StateType>k__BackingField: 0
+  <TimerSettings>k__BackingField:
+    <Enabled>k__BackingField: 1
+    <MinStateTime>k__BackingField: 5
+    <MaxStateTime>k__BackingField: 15

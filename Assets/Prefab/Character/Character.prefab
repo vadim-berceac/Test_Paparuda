@@ -331,6 +331,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AIInput
   <BehaviourType>k__BackingField: 0
+  <StoppingDistance>k__BackingField: 2
+  <RotationSpeed>k__BackingField: 120
 --- !u!114 &4140647271328827121
 MonoBehaviour:
   m_ObjectHideFlags: 0
