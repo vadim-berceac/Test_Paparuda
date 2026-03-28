@@ -18,6 +18,12 @@ public class CharacterInstaller : MonoInstaller
             .NonLazy();
         
         Container
+            .Bind<VisionSystem>()
+            .FromInstance(GetComponentInChildren<VisionSystem>())
+            .AsSingle()
+            .NonLazy();
+        
+        Container
             .Bind<Animator>()
             .FromInstance(GetComponent<Animator>())
             .AsSingle()

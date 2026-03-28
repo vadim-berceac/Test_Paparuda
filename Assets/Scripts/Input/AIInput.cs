@@ -12,31 +12,38 @@ public class AIInput : MonoBehaviour, ICharacterInput, IEnableable
     public bool Attack { get; set; }
 
     public bool Enabled { get; set; }  
+    
     private FSM _stateMachine;
+    private VisionSystem _visionSystem;
 
     [Inject]
     private void Construct(
         CharacterCore characterCore,
-        CharacterStatesContainer characterStatesContainer
+        CharacterStatesContainer characterStatesContainer,
+        VisionSystem visionSystem
         )
     {
         _stateMachine = new FSM(characterCore, this, characterStatesContainer);
+        _visionSystem = visionSystem;
     }
 
     public void Enable()
     {
         Enabled = true;
+        _visionSystem.Enable();
     }
 
     public void Disable()
     {
         Enabled = false;
+        _visionSystem.Disable();
     }
 
     private void Update()
     {
         if(!Enabled) return;
         _stateMachine.OnUpdate();
+        CheckTargets();
     }
 
     private void FixedUpdate()
@@ -49,6 +56,13 @@ public class AIInput : MonoBehaviour, ICharacterInput, IEnableable
     {
         if(!Enabled) return;
         _stateMachine.OnLateUpdate();
+    }
+
+    private void CheckTargets()
+    {
+        if (_visionSystem.GetClosestLiveCharacter() == null) return;
+        
+        Debug.Log(_visionSystem.GetClosestLiveCharacter());
     }
 }
 
